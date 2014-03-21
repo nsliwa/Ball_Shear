@@ -1,7 +1,7 @@
 import cv2
 
 cv2.namedWindow("Live Feed")
-vc = cv2.VideoCapture(1)
+vc = cv2.VideoCapture(2)
 
 if vc.isOpened(): # try to get the first frame
     rval, frame = vc.read()

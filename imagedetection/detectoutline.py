@@ -1,5 +1,5 @@
 import cv2
-image = cv2.imread('test_image2.png')
+image = cv2.imread('test_image.png')
 image2 = cv2.cvtColor(
     image,
     cv2.COLOR_BGR2GRAY, 
