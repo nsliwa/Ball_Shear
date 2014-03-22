@@ -5,7 +5,7 @@ import numpy as np
 d_red = cv2.cv.RGB(150, 55, 65)
 l_red = cv2.cv.RGB(250, 200, 200)
 
-orig = cv2.imread("test_image.png")
+orig = cv2.imread("test_image2.png")
 img = orig.copy()
 img2 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
