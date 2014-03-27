@@ -3,7 +3,7 @@ import cv2.cv as cv
 import numpy as np
 
 # grab image
-orig = cv.LoadImage('test_image5.png')
+orig = cv.LoadImage('test_image.png')
 
 # create tmp images
 grey_scale = cv.CreateImage(cv.GetSize(orig), 8, 1)
