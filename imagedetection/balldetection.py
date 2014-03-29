@@ -21,7 +21,7 @@ def match(matchvalue):
     cv2.imshow('input',img2)
     cv2.imshow('output',result)
 
-img = cv2.imread('test_image2.png')
+img = cv2.imread('test_image.png')
 template = cv2.imread('ball.png')
 
 trows,tcols = template.shape[:2]    # template rows and cols
