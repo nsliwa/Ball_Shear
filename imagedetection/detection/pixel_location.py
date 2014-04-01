@@ -37,6 +37,7 @@ def onmouse(event, x, y, flags, param):
             threshold = 0.8
             loc = np.where( res >= threshold)
             img_rgb=cv2.imread(infile,1)
+            a=0
             for pt in zip(*loc[::-1]):
                 cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0,0,255), 2)
                 cv2.circle(img_rgb,(pt[0]+w/2,pt[1]+h/2),1,(0,0,120),3) # draw the center of the circle
@@ -46,7 +47,7 @@ def onmouse(event, x, y, flags, param):
             val, result = cv2.threshold(result, 0.01, 0, cv2.THRESH_TOZERO)
             result8 = cv2.normalize(result,None,0,255,cv2.NORM_MINMAX,cv2.CV_8U)
             cv2.imwrite('result/res.png',img_rgb)
-            cv2.imshow("result", result8)
+            cv2.imshow("result.res.png", img_rgb)
         drag_start = None
     elif drag_start:
         #print flags
