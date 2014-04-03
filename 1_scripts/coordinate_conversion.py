@@ -2,11 +2,14 @@ import cv2
 import numpy as np
 import math
 import csv
+import sys
 
 try:
-    img_package = cv2.imgread('package_analyzed.png')
-    csv_virtual = open('vcoord.csv', 'r')
-    csv_real = open('rcoord.csv', 'w')
+
+
+    img_package = cv2.imgread('../3_img/package_analyzed.png')
+    csv_virtual = open('../2_coordinates/vcoord.csv', 'r')
+    csv_real = open('../2_coordinates/rcoord.csv', 'w')
 
     #scaling
     rScale = 7.5            #equal to actual length of scale line
@@ -46,13 +49,13 @@ try:
 
     # Bitwise-AND mask and original image
     img_filtered = cv2.bitwise_and(img,img, mask= mask)
-    cv2.imwrite('filtered.png',img_filtered)
+    cv2.imwrite('../3_img/filtered.png',img_filtered)
 
     # HoughLines Stuff
     gray = cv2.cvtColor(img_filtered, cv2.COLOR_BGR2GRAY)
     edges = cv2.Canny(gray,50,150,apertureSize = 3)
 
-    cv2.imwrite('filtered_gray.png',gray)
+    cv2.imwrite('../3_img/filtered_gray.png',gray)
     
     lines = cv2.HoughLines(edges,1,np.pi/180,200)
 
