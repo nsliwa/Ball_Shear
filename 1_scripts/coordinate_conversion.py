@@ -10,14 +10,14 @@ try:
 
     #scaling
     rScale = 7.5            #equal to actual length of scale line
-    vScale = 0              #will be reset to correct val
-    conversionFactor = 0    #will be reset to correct val
+    vScale = 280 #0              #init value
+    conversionFactor = 0    #init value
 
     #origin points
     rOrigin_x = 0   
     rOrigin_y = 0
-    vOrigin_x = 0           #will be reset to correct val
-    vOrigin_y = 0           #will be reset to correct val
+    vOrigin_x = 75 #0           #init value
+    vOrigin_y = 75 #0           #init value
 
     #coordinates of solder balls
     rCoord_x = 0            #temporary placeholder
@@ -104,13 +104,17 @@ try:
 
         conversionFactor = rScale / vScale
 
+        print "conversionFactor:", conversionFactor
+        print ""
+        print ""
+
     #################################################
     # populating virtual coordinates
     #################################################
     # Reading contents of .csv into arrays
         vCoord = np.genfromtxt(csv_virtual, dtype=[('label', 'S5'), ('vCoord_x', 'i8'), ('vCoord_y', 'i8')], delimiter=",")
         for label, vX, vY in vCoord:
-            rCoord_x = (vOrigin_x - vX) * conversionFactor
+            rCoord_x = (vX - vOrigin_x) * conversionFactor
             rCoord_y = (vOrigin_y - vY) * conversionFactor
 
             csvwriter = csv.writer(csv_real, delimiter=',')
@@ -118,6 +122,9 @@ try:
 
             print "(" , vX, ",", vY, ")", "(" , rCoord_x, ",", rCoord_y, ")"
         
+        csv_real.close()
+        csv_virtual.close()
+
     else:
         print "none found"
 
