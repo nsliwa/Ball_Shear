@@ -15,7 +15,9 @@ import cv2
 import os
 import sys
 import glob
+import mmap
 import argparse
+import csv
 from math import *
 
 
@@ -37,12 +39,38 @@ def onmouse(event, x, y, flags, param):
             threshold = 0.8
             loc = np.where( res >= threshold)
             img_rgb=cv2.imread(infile,1)
-            a=0
+            i=0
+            font = cv2.FONT_HERSHEY_PLAIN
+            lastpt1 =0
+            lastpt2 =0
+            lastpt3=0
+            text_file = open("coordinate.csv", "w")
+            difference2=0
+            pt1=[]
+            pt2=[]
             for pt in zip(*loc[::-1]):
-                cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0,0,255), 2)
-                cv2.circle(img_rgb,(pt[0]+w/2,pt[1]+h/2),1,(0,0,120),3) # draw the center of the circle
-                print((pt[0]+w/2,pt[1]+h/2))
-    
+                #if( abs(lastpt1-(pt[0]+w/2))>0):
+                    difference = abs(lastpt1 -(pt[0]+w/2))   
+                    
+                    difference2 = abs(lastpt2 -(pt[0]+w/2))
+                    if(difference > w/2 and difference2 > w/2):
+                        
+                        #difference2 = abs(lastpt3-(pt[0]+w/2))
+                        #if(difference2 >5):
+                        if(((pt1.count(pt[0]+w/2) ==0) or pt2.count(pt[1]+h/2)==0)and((pt1.count(1+pt[0]+w/2) ==0) or pt2.count(1+pt[1]+h/2)==0) and ((pt1.count(pt[0]+w/2) ==0) or pt2.count(1+pt[1]+h/2)==0) and ((pt1.count(1+pt[0]+w/2) ==0) or pt2.count(pt[1]+h/2)==0)):
+                                i=i+1
+                                #cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0,0,255), 1)
+                                cv2.circle(img_rgb,(pt[0]+w/2,pt[1]+h/2),1,(0,0,120),3) # draw the center of the circle
+                                print((pt[0]+w/2,pt[1]+h/2),i  ,difference)
+                                text_file.write(str(i)+','+str(pt[0]+w/2)+','+str(pt[1]+h/2)+'\n');
+                                cv2.putText(img_rgb,str(i),(pt[0]+w/4,pt[1]+h), font,1,(100,100,255),1,cv2.CV_AA)
+                                lastpt2= lastpt1
+                                lastpt1= pt[0]+w/2
+                    pt1.append(pt[0]+w/2)
+                    pt2.append(pt[1]+h/2)
+                    
+                    
+                         
             
             val, result = cv2.threshold(result, 0.01, 0, cv2.THRESH_TOZERO)
             result8 = cv2.normalize(result,None,0,255,cv2.NORM_MINMAX,cv2.CV_8U)
