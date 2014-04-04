@@ -220,3 +220,5 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+imagedetection/detection/coordinate.csv
+imagedetection/detection/result/res.png
