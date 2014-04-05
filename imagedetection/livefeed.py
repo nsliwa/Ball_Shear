@@ -17,9 +17,9 @@ def capture():
     camera_capture = get_image()
     print(len(sys.argv))
     if(len(sys.argv)==1):
-        file="capturedimage.png"
+        file="package.png"
     else:
-        file = sys.argv[1]+"/capturedimage.png"
+        file = sys.argv[1]
     cv2.imwrite(file, camera_capture)
     a =display()
     if(a == 2):return 2
@@ -28,10 +28,10 @@ def display():
     print("Press ESC to Delete")
     print("Press S to Save")
     if(len(sys.argv)==1):
-        imgFile=cv2.imread('capturedimage.png')
+        imgFile=cv2.imread('package.png')
         cv2.imshow('image', imgFile)
     else:
-        imgFile = cv2.imread(sys.argv[1]+'/capturedimage.png')
+        imgFile = cv2.imread(sys.argv[1])
         cv2.imshow('image', imgFile)
     key = cv2.waitKey(0)
     if key == 27:
