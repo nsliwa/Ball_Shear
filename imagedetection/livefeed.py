@@ -44,20 +44,27 @@ def display():
         
 	
 
-print("Press c to capture a Image")
+
+if(len(sys.argv)!=2):
+        print >> sys.stderr, 'Input argument is not found'
+        rval=0
+else:
+    print("Press c to capture a Image")
 #print(sys.argv[1])
 while rval:
-    cv2.imshow("Live Feed", frame)
-    rval, frame = vc.read()
-    key = cv2.waitKey(20)
-    b=0
+        cv2.imshow("Live Feed", frame)
+        rval, frame = vc.read()
+        key = cv2.waitKey(20)
+        b=0
     #key2 = cv2.waitKey(0);
-    if key == 27: # exit on ESC
-        break
-    if key == 99:
-    	b =capture()
-    if (b==2):
-        break
+    
+        if key == 27: # exit on ESC
+            print >> sys.stderr, 'Picture has not been saved. Please take image again'
+            break
+        if key == 99:
+            b =capture()
+        if (b==2):
+            break
     	
     	
     

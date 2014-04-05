@@ -44,7 +44,10 @@ def onmouse(event, x, y, flags, param):
             lastpt1 =0
             lastpt2 =0
             lastpt3=0
-            text_file = open("coordinate.csv", "w")
+            if(len(sys.argv)<=2):
+                text_file = open("coordinate.csv", "w")
+            else:
+                text_file = open(sys.argv[2], "w")
             difference2=0
             pt1=[]
             pt2=[]
@@ -74,8 +77,13 @@ def onmouse(event, x, y, flags, param):
             
             val, result = cv2.threshold(result, 0.01, 0, cv2.THRESH_TOZERO)
             result8 = cv2.normalize(result,None,0,255,cv2.NORM_MINMAX,cv2.CV_8U)
-            cv2.imwrite('result/res.png',img_rgb)
-            cv2.imshow("result.res.png", img_rgb)
+            if(len(sys.argv)<=3):
+                cv2.imwrite('res.png',img_rgb)
+                cv2.imshow("res.png", img_rgb)
+            else:
+                cv2.imwrite(sys.argv[3],img_rgb)
+                cv2.imshow(sys.argv[3], img_rgb)
+            
         drag_start = None
     elif drag_start:
         #print flags
@@ -91,26 +99,31 @@ def onmouse(event, x, y, flags, param):
             drag_start = None
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Demonstrate mouse interaction with images')
-    parser.add_argument("-i","--input", default='./', help="Input directory.")
-    args = parser.parse_args()
-    path = args.input
+    #parser = argparse.ArgumentParser(description='Demonstrate mouse interaction with images')
+    #parser.add_argument("-i","--input", default='./', help="Input directory.")
+    #args = parser.parse_args()
+    #path = args.input
 
     cv2.namedWindow("gray",1)
     cv2.setMouseCallback("gray", onmouse)
     '''Loop through all the images in the directory'''
-    for infile in glob.glob( os.path.join(path, '*.*') ):
-        ext = os.path.splitext(infile)[1][1:] #get the filename extenstion
-        if ext == "png" or ext == "jpg" or ext == "bmp" or ext == "tiff" or ext == "pbm":
-            print infile
-
-            img=cv2.imread(infile,1)
-            if img == None:
-                continue
-            sel = (0,0,0,0)
-            drag_start = None
-            gray=cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            cv2.imshow("gray",gray)
-            if (cv2.waitKey() & 255) == 27:
-                break
-    cv2.destroyAllWindows()
+    #for infile in glob.glob( os.path.join(path, '*.*') ):
+        #ext = os.path.splitext(infile)[1][1:] #get the filename extenstion
+    #if ext == "png" or ext == "jpg" or ext == "bmp" or ext == "tiff" or ext == "pbm":
+            #print infile
+    if(len(sys.argv)<=3):
+        print >> sys.stderr, 'Input Arguments are not correct. Please follow this templete input picture file location,output csv file location, output image file location'
+        infile="package1.png"
+        cv2.destroyAllWindows()
+    else:
+        infile = sys.argv[1]
+        img=cv2.imread(infile,1)
+            #if img == None:
+                #continue
+        sel = (0,0,0,0)
+        drag_start = None
+        gray=cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        cv2.imshow("gray",gray)
+        if (cv2.waitKey() & 255) == 27:
+            #break
+            cv2.destroyAllWindows()
