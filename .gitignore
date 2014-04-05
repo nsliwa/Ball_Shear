@@ -222,3 +222,4 @@ $RECYCLE.BIN/
 *.msp
 imagedetection/detection/coordinate.csv
 imagedetection/detection/result/res.png
+imagedetection/detection/coordinate.csv
