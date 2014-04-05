@@ -3,6 +3,7 @@ import numpy as np
 import math
 import csv
 import sys
+import Image
 
 try:
 
@@ -10,6 +11,9 @@ try:
     img_package = cv2.imread('../img/package_analyzed.png')
     csv_virtual = open('../data/vcoord.csv', 'r')
     csv_real = open('../data/rcoord.csv', 'w')
+
+    #dimensions
+    height, width, depth = img_package.shape
 
     #scaling
     rScale = 7.5            #equal to actual length of scale line
@@ -56,6 +60,9 @@ try:
     edges = cv2.Canny(gray,50,150,apertureSize = 3)
 
     cv2.imwrite('../img/filtered_gray.png',gray)
+
+    img_bw = Image.open('../img/filtered_gray.png')
+    #width, height, = img_bw.size
     
     lines = cv2.HoughLines(edges,1,np.pi/180,200)
 
@@ -73,10 +80,10 @@ try:
             print "x0:", x0
             y0 = b*rho
             print "y0:", y0
-            x1 = int(x0 + 25*(-b))
-            y1 = int(y0 + 25*(a))
-            x2 = int(x0 - 25*(-b))
-            y2 = int(y0 - 25*(a))
+            x1 = int(x0 + 1000*(-b))
+            y1 = int(y0 + 1000*(a))
+            x2 = int(x0 - 1000*(-b))
+            y2 = int(y0 - 1000*(a))
             
             print "x1:", x1
             print "x2:", x2
@@ -88,23 +95,90 @@ try:
             cv2.circle(img_package, (x2,y2), 1, (0,0,0), 3)
             cv2.circle(img_package, (75,75), 1, (0,0,0), 3)
 
-            d_x = x1 - x2
-            d_y = y1 - y2
-            d = math.sqrt(d_x * d_x + d_y * d_y)
-            print "length:", d
-            print ""
-            print ""
-
-            total_l = total_l + d
-            num_lines = num_lines + 1
+            m = None
+            endpoints = 0
             
-            cv2.line(img_package,(x1,y1),(x2,y2),(0,0,255),2)
-            cv2.imwrite('../img/filtered_gray_detected.png',img_package)
+            if x1 - x2 == 0:
+                print "slope: undefined"
+                y1 = 0
+                y2 = height - 1
+                
+                print "y1:", y1, ", y2:", y2
+                print "x1:", x1, ", x2:", x2
+                
+                while endpoints < 2:
+                    if (endpoints == 0 and y1 == height) or (endpoints == 1 and y2 == -1):
+                        print "can't find the endpoint!"
+                        break
+                    elif endpoints == 0 and img_bw.getpixel( (x1, y1) ) == 0 and y1 < height:#gray[x1, y1] == 0:
+                        print "(",x1,", ",y1,") -",str(img_bw.getpixel( (x1, y1) ))#str(gray[x1,y1])
+                        y1 = y1 + 1
+                    elif endpoints == 1 and img_bw.getpixel( (x2, y2) ) == 0 and y2 >= 0: #gray[x2, y2] == 0:
+                        print "(",x2,", ",y2,") -",str(img_bw.getpixel( (x2,y2) )) #str(gray[x2,y2])
+                        y2 = y2 - 1
+                    else:
+                        endpoints = endpoints + 1
+                        print "(",x1,", ",y1,") -",str(img_bw.getpixel( (x1,y1) )),"(",x2,", ",y2,") -",str(img_bw.getpixel( (x2,y2) ))
+                
+            else:
+                m = (y1 - y2) / (x1 - x2)
+                print "slope:", m
+                y = y1
+                y1 = m * (0 - x1) + y
+                x1 = 0
+                y = y2
+                y2 = m * (width - 1 - x1) + y
+                x2 = width - 1 
 
-            if num_lines == 1:
-                vOrigin_x = x1
-                vOrigin_y = y1
-                print "origin: (", vOrigin_x, ",", vOrigin_y, ")"
+                print "y1:", y1, ", y2:", y2
+                print "x1:", x1, ", x2:", x2
+                
+                while endpoints < 2:
+                    if (endpoints == 0 and x1 == width) or (endpoints == 1 and x2 == -1):
+                        print "can't find the endpoint!"
+                        break 
+                    elif endpoints == 0 and img_bw.getpixel( (x1, y1) ) == 0 and x1 < width: #gray[x1, y1] == 0:
+                        print "1: (",x1,", ",y1,") -",img_bw.getpixel( (x1,y1) )#, str(gray[x1+1,y1]), str(gray[x1,y1+1]), str(gray[x1+1,y1+1])
+                        x = x1
+                        x1 = x1 + 1
+                        y = y1
+                        y1 = m * (x1 - x) + y
+                    elif endpoints == 1 and img_bw.getpixel( (x2, y2) ) == 0 and x2 >= 0: #gray[x2, y2] == 0:
+                        print "2: (",x2,", ",y2,") -",str(img_bw.getpixel( (x2,y2) ))#, str(gray[x2+1,y2]), str(gray[x2,y2+1]), str(gray[x2+1,y2+1])
+                        x = x2
+                        x2 = x2 - 1
+                        y = y2
+                        y2 = m * (x2 - x) + y
+                    elif endpoints == 0:
+                        print "\tfound one!"
+                        endpoints = endpoints + 1
+                        print "3: (",x1,", ",y1,") -",str(img_bw.getpixel( (x1,y1) )), str(img_bw.getpixel( (x1+1,y1) )), str(img_bw.getpixel( (x1,y1+1) )), str(img_bw.getpixel( (x1+1,y1+1) ))
+                    elif endpoints == 1:
+                        print "\tfound one!"
+                        endpoints = endpoints + 1
+                        print "4: (",x2,", ",y2,") -",str(img_bw.getpixel( (x2,y2) )), str(img_bw.getpixel( (x2+1,y2) )), str(img_bw.getpixel( (x2,y2+1) )), str(img_bw.getpixel( (x2+1,y2+1) ))
+
+            if endpoints == 2:
+                d_x = x1 - x2
+                d_y = y1 - y2
+                d = math.sqrt(d_x * d_x + d_y * d_y)
+                print "length:", d
+                print ""
+                print ""
+
+                total_l = total_l + d
+                num_lines = num_lines + 1
+            
+                cv2.line(img_package,(x1,y1),(x2,y2),(0,0,255),2)
+                cv2.imwrite('../img/filtered_gray_detected.png',gray)
+
+                if num_lines == 1:
+                    vOrigin_x = x1
+                    vOrigin_y = y1
+                    print "origin: (", vOrigin_x, ",", vOrigin_y, ")"
+
+            else:
+                print "this line doesn't count!"
 
     # Scaling
         vScale = total_l / num_lines
