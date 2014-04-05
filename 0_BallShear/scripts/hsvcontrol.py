@@ -8,7 +8,7 @@ def nothing(x):
     pass
 
 # Create a black image, a window
-img = cv2.imread('test_image.png')
+img = cv2.imread('../img/package6.png')
 cv2.namedWindow('image')
 
 # create trackbars for color change
