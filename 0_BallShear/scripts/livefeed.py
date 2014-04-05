@@ -19,14 +19,14 @@ def get_image():
 
 def capture():
 	camera_capture = get_image()
-	file = img_package #"test_image.png"
+	file = str(img_package) #"test_image.png"
 	cv2.imwrite(file, camera_capture)
 	display()
 
 def display():
 	print("Press ESC to Delete")
 	print("Press S to Save")
-	imgFile = cv2.imread(file) #'test_image.png')
+	imgFile = cv2.imread(img_package) #'test_image.png')
 	cv2.imshow('image', imgFile)
 	key = cv2.waitKey(0)
 	if key == 27: cv2.destroyWindow('image')	
