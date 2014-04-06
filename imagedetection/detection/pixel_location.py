@@ -12,14 +12,14 @@ import numpy as np
 import cv2
 
 # built-in modules
-import os
+import os.path
 import sys
 import glob
 import mmap
 import argparse
 import csv
 from math import *
-
+from matplotlib import pyplot as plt
 
 drag_start = None
 sel = (0,0,0,0)
@@ -82,6 +82,9 @@ def onmouse(event, x, y, flags, param):
                 cv2.imshow("res.png", img_rgb)
             else:
                 cv2.imwrite(sys.argv[3],img_rgb)
+                #plt.imshow(img_rgb)
+                #plt.xticks([]), plt.yticks([])  # to hide tick values on X and Y axis
+                #plt.show()
                 cv2.imshow(sys.argv[3], img_rgb)
             
         drag_start = None
@@ -113,17 +116,25 @@ if __name__ == '__main__':
             #print infile
     if(len(sys.argv)<=3):
         print >> sys.stderr, 'Input Arguments are not correct. Please follow this templete input picture file location,output csv file location, output image file location'
-        infile="package1.png"
+        #infile="package1.png"
         cv2.destroyAllWindows()
     else:
         infile = sys.argv[1]
-        img=cv2.imread(infile,1)
+        if(os.path.exists(sys.argv[1])):
+            img=cv2.imread(infile,1)
             #if img == None:
                 #continue
-        sel = (0,0,0,0)
-        drag_start = None
-        gray=cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        cv2.imshow("gray",gray)
+            sel = (0,0,0,0)
+            drag_start = None
+            gray=cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            cv2.imshow("gray",gray)
+            #plt.imshow(img, cmap = 'gray', interpolation = 'bicubic')
+            #plt.xticks([]), plt.yticks([])  # to hide tick values on X and Y axis
+            #plt.show()
+        else:
+            cv2.destroyAllWindows()
+            print >> sys.stderr, 'Input Arguments are not correct. Please follow this templete input picture file location,output csv file location, output image file location'
+
         if (cv2.waitKey() & 255) == 27:
             #break
             cv2.destroyAllWindows()
