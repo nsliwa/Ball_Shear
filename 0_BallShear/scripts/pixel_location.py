@@ -12,16 +12,14 @@ import numpy as np
 import cv2
 
 # built-in modules
-import os
+import os.path
 import sys
 import glob
-import PIL
-from PIL import ImageFont
-from PIL import Image
-from PIL import ImageDraw
+import mmap
 import argparse
+import csv
 from math import *
-
+#from matplotlib import pyplot as plt
 
 drag_start = None
 sel = (0,0,0,0)
@@ -46,35 +44,51 @@ def onmouse(event, x, y, flags, param):
             lastpt1 =0
             lastpt2 =0
             lastpt3=0
+            if(len(sys.argv)<=2):
+                text_file = open("coordinate.csv", "w")
+            else:
+                text_file = open(sys.argv[2], "w")
+            difference2=0
+            pt1=[]
+            pt2=[]
             for pt in zip(*loc[::-1]):
                 #if( abs(lastpt1-(pt[0]+w/2))>0):
-                    #difference = lastpt1 -(pt[0]+w/2)   
-                    #if(difference < 5):
-                    #    i=i
-                    #    difference=0
-                    #if((lastpt1 ==(pt[0]+w/2))):
-                    #    i=i
-                    #    difference=0
-                    #if(difference > 5):
-                       
-                        difference2 = abs(lastpt3-(pt[0]+w/2))
-                        if(difference2 >5):
-                            i=i+1
-                            cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0,0,255), 1)
-                            cv2.circle(img_rgb,(pt[0]+w/2,pt[1]+h/2),1,(0,0,120),3) # draw the center of the circle
-                            print((pt[0]+w/2,pt[1]+h/2),i,'lastpoint:',lastpt3)
-                            cv2.putText(img_rgb,str(i),(pt[0]+w/2,pt[1]+h/2), font,1,(255,255,255),1,cv2.CV_AA)
-                            lastpt3=pt[0]+w/2
+                    difference = abs(lastpt1 -(pt[0]+w/2))   
                     
-                
-                        lastpt1= pt[0]+w/2
-                        lastpt2= pt[1]+h/2
-                
+                    difference2 = abs(lastpt2 -(pt[0]+w/2))
+                    if(difference > w/2 and difference2 > w/2):
+                        
+                        #difference2 = abs(lastpt3-(pt[0]+w/2))
+                        #if(difference2 >5):
+                        if(((pt1.count(pt[0]+w/2) ==0) or pt2.count(pt[1]+h/2)==0)and((pt1.count(1+pt[0]+w/2) ==0) or pt2.count(1+pt[1]+h/2)==0) and ((pt1.count(pt[0]+w/2) ==0) or pt2.count(1+pt[1]+h/2)==0) and ((pt1.count(1+pt[0]+w/2) ==0) or pt2.count(pt[1]+h/2)==0)):
+                                if i > 0:
+                                    text_file.write('\n')
+                                i=i+1
+                                #cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0,0,255), 1)
+                                cv2.circle(img_rgb,(pt[0]+w/2,pt[1]+h/2),1,(0,0,120),3) # draw the center of the circle
+                                print((pt[0]+w/2,pt[1]+h/2),i  ,difference)
+                                text_file.write(str(i)+','+str(pt[0]+w/2)+','+str(pt[1]+h/2));
+                                cv2.putText(img_rgb,str(i),(pt[0]+w/4,pt[1]+h), font,1,(100,100,255),1,cv2.CV_AA)
+                                lastpt2= lastpt1
+                                lastpt1= pt[0]+w/2
+                    pt1.append(pt[0]+w/2)
+                    pt2.append(pt[1]+h/2)
+                    
+                    
+                         
             
             val, result = cv2.threshold(result, 0.01, 0, cv2.THRESH_TOZERO)
             result8 = cv2.normalize(result,None,0,255,cv2.NORM_MINMAX,cv2.CV_8U)
-            cv2.imwrite('result/res.png',img_rgb)
-            cv2.imshow("result.res.png", img_rgb)
+            if(len(sys.argv)<=3):
+                cv2.imwrite('res.png',img_rgb)
+                cv2.imshow("res.png", img_rgb)
+            else:
+                cv2.imwrite(sys.argv[3],img_rgb)
+                #plt.imshow(img_rgb)
+                #plt.xticks([]), plt.yticks([])  # to hide tick values on X and Y axis
+                #plt.show()
+                cv2.imshow(sys.argv[3], img_rgb)
+            
         drag_start = None
     elif drag_start:
         #print flags
@@ -90,26 +104,39 @@ def onmouse(event, x, y, flags, param):
             drag_start = None
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Demonstrate mouse interaction with images')
-    parser.add_argument("-i","--input", default='./', help="Input directory.")
-    args = parser.parse_args()
-    path = args.input
+    #parser = argparse.ArgumentParser(description='Demonstrate mouse interaction with images')
+    #parser.add_argument("-i","--input", default='./', help="Input directory.")
+    #args = parser.parse_args()
+    #path = args.input
 
     cv2.namedWindow("gray",1)
     cv2.setMouseCallback("gray", onmouse)
     '''Loop through all the images in the directory'''
-    for infile in glob.glob( os.path.join(path, '*.*') ):
-        ext = os.path.splitext(infile)[1][1:] #get the filename extenstion
-        if ext == "png" or ext == "jpg" or ext == "bmp" or ext == "tiff" or ext == "pbm":
-            print infile
-
+    #for infile in glob.glob( os.path.join(path, '*.*') ):
+        #ext = os.path.splitext(infile)[1][1:] #get the filename extenstion
+    #if ext == "png" or ext == "jpg" or ext == "bmp" or ext == "tiff" or ext == "pbm":
+            #print infile
+    if(len(sys.argv)<=3):
+        print >> sys.stderr, 'Input Arguments are not correct. Please follow this templete input picture file location,output csv file location, output image file location'
+        #infile="package1.png"
+        cv2.destroyAllWindows()
+    else:
+        infile = sys.argv[1]
+        if(os.path.exists(sys.argv[1])):
             img=cv2.imread(infile,1)
-            if img == None:
-                continue
+            #if img == None:
+                #continue
             sel = (0,0,0,0)
             drag_start = None
             gray=cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
             cv2.imshow("gray",gray)
-            if (cv2.waitKey() & 255) == 27:
-                break
-    cv2.destroyAllWindows()
+            #plt.imshow(img, cmap = 'gray', interpolation = 'bicubic')
+            #plt.xticks([]), plt.yticks([])  # to hide tick values on X and Y axis
+            #plt.show()
+        else:
+            cv2.destroyAllWindows()
+            print >> sys.stderr, 'Input Arguments are not correct. Please follow this templete input picture file location,output csv file location, output image file location'
+
+        if (cv2.waitKey() & 255) == 27:
+            #break
+            cv2.destroyAllWindows()

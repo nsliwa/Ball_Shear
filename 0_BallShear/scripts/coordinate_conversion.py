@@ -34,12 +34,12 @@ elif(os.path.exists(sys.argv[1]) and os.path.exists(sys.argv[2])):
         rCoord_y = 0            #temporary placeholder
 
         #filtering
-        h_low = 120
-        s_low = 0
-        v_low = 0
-        h_high = 180
+        h_low = 0
+        s_low = 32
+        v_low = 143
+        h_high = 12
         s_high = 255
-        v_high = 255
+        v_high = 197
 
         hsv_lower = np.array([h_low, s_low, v_low])
         hsv_upper = np.array([h_high, s_high, v_high])
@@ -202,13 +202,19 @@ elif(os.path.exists(sys.argv[1]) and os.path.exists(sys.argv[2])):
         # populating virtual coordinates
         #################################################
         # Reading contents of .csv into arrays
+            i = 0
             vCoord = np.genfromtxt(csv_virtual, dtype=[('label', 'S5'), ('vCoord_x', 'i8'), ('vCoord_y', 'i8')], delimiter=",")
             for label, vX, vY in vCoord:
                 rCoord_x = (vX - vOrigin_x) * conversionFactor
                 rCoord_y = (vOrigin_y - vY) * conversionFactor
 
-                csvwriter = csv.writer(csv_real, delimiter=',')
-                csvwriter.writerow([label, rCoord_x, rCoord_y])
+                if i > 0:
+                    csv_real.write('\n')
+                i=i+1
+                csv_real.write(str(label)+','+str(rCoord_x)+','+str(rCoord_y));
+        
+                #csvwriter = csv.writer(csv_real, delimiter=',')
+                #csvwriter.writerow([label, rCoord_x, rCoord_y])
 
                 print "virtual: (" , vX, ",", vY, ")", "real: (" , rCoord_x, ",", rCoord_y, ")"
             
@@ -218,11 +224,11 @@ elif(os.path.exists(sys.argv[1]) and os.path.exists(sys.argv[2])):
         else:
             print "none found"
 
-        raw_input()
+        #raw_input()
 
     except Exception as ex:
         print ex
-        raw_input()
+        #raw_input()
 else:
     print >> sys.stderr, 'Input Arguments are not correct. Please follow this templete analyzed  picture file location,virtual coordinate csv file location, physical coordinate csv location'
 
