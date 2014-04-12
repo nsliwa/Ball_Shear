@@ -99,7 +99,6 @@ def onmouse(event, x, y, flags, param):
 
             #print label[3][0]
             points.sort()
-            print points
             aa=0
             for j in range(0, len(points)):
                 #xmin =(points[j][1])-w
@@ -126,9 +125,9 @@ def onmouse(event, x, y, flags, param):
                 #if j > 0:
                 #    text_file.write('\n')
                 cv2.circle(img_rgb,((points[j][1]),(points[j][2])),1,(0,0,120),3) # draw the center of the circle
-                cv2.putText(img_rgb,str(points[j][0]),(points[j][1]-w/4,points[j][2]+h/2), font,1,(100,100,255),1,cv2.CV_AA)    
+                cv2.putText(img_rgb,str(j),(points[j][1]-w/4,points[j][2]+h/2), font,1,(100,100,255),1,cv2.CV_AA)    
                 
-                text_file.write(str(points[j][0])+','+str(points[j][1])+','+str(points[j][2]));         
+                text_file.write(str(j)+','+str(points[j][1])+','+str(points[j][2]));         
                 if j >= 0:
                     text_file.write('\n')
             val, result = cv2.threshold(result, 0.01, 0, cv2.THRESH_TOZERO)
@@ -142,7 +141,7 @@ def onmouse(event, x, y, flags, param):
                 #plt.xticks([]), plt.yticks([])  # to hide tick values on X and Y axis
                 #plt.show()
                 cv2.imshow(sys.argv[3], img_rgb)
-            
+                print 'If all balls arent detected please draw another ball'
         drag_start = None
     elif drag_start:
         #print flags
@@ -162,7 +161,7 @@ if __name__ == '__main__':
     #parser.add_argument("-i","--input", default='./', help="Input directory.")
     #args = parser.parse_args()
     #path = args.input
-
+    print 'Draw a box around a solder ball.'
     cv2.namedWindow("gray",1)
     cv2.setMouseCallback("gray", onmouse)
     '''Loop through all the images in the directory'''
