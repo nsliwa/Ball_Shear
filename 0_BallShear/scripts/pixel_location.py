@@ -23,9 +23,15 @@ from math import *
 
 drag_start = None
 sel = (0,0,0,0)
+i=0
+result=0
+loc=0
+points=[]
+x1=[]
+y1=[]
 
 def onmouse(event, x, y, flags, param):
-    global drag_start, sel
+    global drag_start, sel,i,result,loc,label,x1,y1,points
     if event == cv2.EVENT_LBUTTONDOWN:
         drag_start = x, y
         sel = 0,0,0,0
@@ -36,10 +42,10 @@ def onmouse(event, x, y, flags, param):
             result = np.abs(result)**3
             res=result
             w, h = patch.shape[::-1]
-            threshold = 0.8
+            threshold = .8
             loc = np.where( res >= threshold)
-            img_rgb=cv2.imread(infile,1)
-            i=0
+            img_rgb=cv2.imread(sys.argv[1],1)
+            
             font = cv2.FONT_HERSHEY_PLAIN
             lastpt1 =0
             lastpt2 =0
@@ -51,6 +57,7 @@ def onmouse(event, x, y, flags, param):
             difference2=0
             pt1=[]
             pt2=[]
+            
             for pt in zip(*loc[::-1]):
                 #if( abs(lastpt1-(pt[0]+w/2))>0):
                     difference = abs(lastpt1 -(pt[0]+w/2))   
@@ -61,22 +68,68 @@ def onmouse(event, x, y, flags, param):
                         #difference2 = abs(lastpt3-(pt[0]+w/2))
                         #if(difference2 >5):
                         if(((pt1.count(pt[0]+w/2) ==0) or pt2.count(pt[1]+h/2)==0)and((pt1.count(1+pt[0]+w/2) ==0) or pt2.count(1+pt[1]+h/2)==0) and ((pt1.count(pt[0]+w/2) ==0) or pt2.count(1+pt[1]+h/2)==0) and ((pt1.count(1+pt[0]+w/2) ==0) or pt2.count(pt[1]+h/2)==0)):
-                                if i > 0:
-                                    text_file.write('\n')
+                                #if i > 0:
+                                #    text_file.write('\n')
                                 i=i+1
                                 #cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0,0,255), 1)
-                                cv2.circle(img_rgb,(pt[0]+w/2,pt[1]+h/2),1,(0,0,120),3) # draw the center of the circle
-                                print((pt[0]+w/2,pt[1]+h/2),i  ,difference)
-                                text_file.write(str(i)+','+str(pt[0]+w/2)+','+str(pt[1]+h/2));
-                                cv2.putText(img_rgb,str(i),(pt[0]+w/4,pt[1]+h), font,1,(100,100,255),1,cv2.CV_AA)
+                                #cv2.circle(img_rgb,(pt[0]+w/2,pt[1]+h/2),1,(0,0,120),3) # draw the center of the circle
+                                #print((pt[0]+w/2,pt[1]+h/2),i  ,difference)
+                                #text_file.write(str(i)+','+str(pt[0]+w/2)+','+str(pt[1]+h/2));
+                                #cv2.putText(img_rgb,str(i),(pt[0]+w/4,pt[1]+h), font,1,(100,100,255),1,cv2.CV_AA)
                                 lastpt2= lastpt1
                                 lastpt1= pt[0]+w/2
+                                
+                                bb=0
+                                xmin=(pt[0]+w/2) -w
+                                xmax=(pt[0]+w/2) +w
+                                ymin=(pt[1]+h/2) -h
+                                ymax=(pt[1]+h/2) +h
+                                for k in range(1, len(points)):
+                                    if(points[k][1]>xmin and points[k][1]<xmax):
+                                        if(points[k][2]>ymin and points[k][2]<ymax):
+                                            bb=1
+                                        
+
+
+                                if(bb==0):
+                                    points.insert(i,(i,pt[0]+w/2,pt[1]+h/2))
+                                
                     pt1.append(pt[0]+w/2)
                     pt2.append(pt[1]+h/2)
+
+            #print label[3][0]
+            points.sort()
+            aa=0
+            for j in range(0, len(points)):
+                #xmin =(points[j][1])-w
+                #xmax = (points[j][1])+w
+                #ymin =(points[j][2])-h
+                #ymax = (points[j][2])+h
+                #for k in range (2, len(points)):
                     
-                    
-                         
-            
+                    #if((points[j][1])-(points[k][1])<2):
+                       #if(abs((points[j][2])-(points[k][2]))<2):
+                    #       aa=1
+                       
+                   #     if(ymin<points[k][2]<ymax):
+                   #        aa=1
+                    #if((range(points[k][1],w) in points[j])and (range(points[k][2],h) in points[j])):
+                    #    aa=1
+                    #if((range(points[k][1],-w) in points[j])and (range(points[k][2],-h) in points[j])):
+                    #    aa=1
+                    #if((range(points[k][2],h) in points[j])):
+                    #    aa=1
+                    #if((range(points[k][2],-h) in points[j])):
+                    #    aa=1
+            #if(aa==0):
+                #if j > 0:
+                #    text_file.write('\n')
+                cv2.circle(img_rgb,((points[j][1]),(points[j][2])),1,(0,0,120),3) # draw the center of the circle
+                cv2.putText(img_rgb,str(j),(points[j][1]-w/4,points[j][2]+h/2), font,1,(100,100,255),1,cv2.CV_AA)    
+                
+                text_file.write(str(j)+','+str(points[j][1])+','+str(points[j][2]));         
+                if j >= 0:
+                    text_file.write('\n')
             val, result = cv2.threshold(result, 0.01, 0, cv2.THRESH_TOZERO)
             result8 = cv2.normalize(result,None,0,255,cv2.NORM_MINMAX,cv2.CV_8U)
             if(len(sys.argv)<=3):
@@ -88,7 +141,7 @@ def onmouse(event, x, y, flags, param):
                 #plt.xticks([]), plt.yticks([])  # to hide tick values on X and Y axis
                 #plt.show()
                 cv2.imshow(sys.argv[3], img_rgb)
-            
+                print 'If all balls arent detected please draw another ball'
         drag_start = None
     elif drag_start:
         #print flags
@@ -108,7 +161,7 @@ if __name__ == '__main__':
     #parser.add_argument("-i","--input", default='./', help="Input directory.")
     #args = parser.parse_args()
     #path = args.input
-
+    print 'Draw a box around a solder ball.'
     cv2.namedWindow("gray",1)
     cv2.setMouseCallback("gray", onmouse)
     '''Loop through all the images in the directory'''

@@ -74,7 +74,6 @@ def onmouse(event, x, y, flags, param):
                     
                     
                          
-            
             val, result = cv2.threshold(result, 0.01, 0, cv2.THRESH_TOZERO)
             result8 = cv2.normalize(result,None,0,255,cv2.NORM_MINMAX,cv2.CV_8U)
             if(len(sys.argv)<=3):
