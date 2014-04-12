@@ -10,6 +10,7 @@
 		<Property Name="server.vi.callsEnabled" Type="Bool">true</Property>
 		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
+		<Item Name="BallShear.vi" Type="VI" URL="../BallShear.vi"/>
 		<Item Name="BallShear_BallSelection.vi" Type="VI" URL="../BallShear_BallSelection.vi"/>
 		<Item Name="BallShear_BallShear.vi" Type="VI" URL="../BallShear_BallShear.vi"/>
 		<Item Name="BallShear_DependencyCheck.vi" Type="VI" URL="../BallShear_DependencyCheck.vi"/>
@@ -18,7 +19,15 @@
 		<Item Name="BallShear_PackageCapture.vi" Type="VI" URL="../BallShear_PackageCapture.vi"/>
 		<Item Name="BallShear_PackageCheck.vi" Type="VI" URL="../BallShear_PackageCheck.vi"/>
 		<Item Name="BallShear_ResultDisplay.vi" Type="VI" URL="../BallShear_ResultDisplay.vi"/>
+		<Item Name="Homing_X_Stage.vi" Type="VI" URL="../Homing_X_Stage.vi"/>
+		<Item Name="Homing_Y_Stage.vi" Type="VI" URL="../Homing_Y_Stage.vi"/>
+		<Item Name="Homing_Z_Stage.vi" Type="VI" URL="../Homing_Z_Stage.vi"/>
 		<Item Name="LabVIEW Interface for Arduino.lvlib" Type="Library" URL="/&lt;vilib&gt;/LabVIEW Interface for Arduino/LabVIEW Interface for Arduino.lvlib"/>
+		<Item Name="Pressure_Jog_Z.vi" Type="VI" URL="../Pressure_Jog_Z.vi"/>
+		<Item Name="X_Stage.vi" Type="VI" URL="../X_Stage.vi"/>
+		<Item Name="XYZ_Stage_Movement.vi" Type="VI" URL="../XYZ_Stage_Movement.vi"/>
+		<Item Name="Y_Stage.vi" Type="VI" URL="../Y_Stage.vi"/>
+		<Item Name="Z_Stage.vi" Type="VI" URL="../Z_Stage.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="vi.lib" Type="Folder">
 				<Item Name="_2DArrToArrWfms.vi" Type="VI" URL="/&lt;vilib&gt;/sound2/lvsound2.llb/_2DArrToArrWfms.vi"/>
@@ -58,6 +67,7 @@
 				<Item Name="IR Type.ctl" Type="VI" URL="/&lt;vilib&gt;/LabVIEW Interface for Arduino/Type Defs/IR Type.ctl"/>
 				<Item Name="Longest Line Length in Pixels.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Longest Line Length in Pixels.vi"/>
 				<Item Name="LVBoundsTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVBoundsTypeDef.ctl"/>
+				<Item Name="NI_AALBase.lvlib" Type="Library" URL="/&lt;vilib&gt;/Analysis/NI_AALBase.lvlib"/>
 				<Item Name="Not Found Dialog.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Not Found Dialog.vi"/>
 				<Item Name="Open File+.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Open File+.vi"/>
 				<Item Name="Path To Command Line String.vi" Type="VI" URL="/&lt;vilib&gt;/AdvancedString/Path To Command Line String.vi"/>
@@ -110,6 +120,7 @@
 				<Item Name="VISA Configure Serial Port (Serial Instr).vi" Type="VI" URL="/&lt;vilib&gt;/Instr/_visa.llb/VISA Configure Serial Port (Serial Instr).vi"/>
 				<Item Name="whitespace.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/whitespace.ctl"/>
 			</Item>
+			<Item Name="lvanlys.dll" Type="Document" URL="/&lt;resource&gt;/lvanlys.dll"/>
 			<Item Name="lvsound2.dll" Type="Document" URL="/&lt;resource&gt;/lvsound2.dll"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build"/>
