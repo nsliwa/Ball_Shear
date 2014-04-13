@@ -6,6 +6,8 @@ if vc.isOpened(): # try to get the first frame
     rval, frame = vc.read()
 else:
     rval = False
+    print >> sys.stderr, 'Camera is not detected . Please plug in camera'
+
 
 # Captures a single image from the camera and returns it in PIL format
 def get_image():
