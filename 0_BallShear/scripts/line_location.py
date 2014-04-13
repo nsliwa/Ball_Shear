@@ -33,7 +33,7 @@ elif __name__ == "__main__":
 
 
     #adding the image
-    File = '../img/packageAnalyzed.png'
+    File = sys.argv[1] #'../img/packageAnalyzed.png'
     img = ImageTk.PhotoImage(Image.open(File))
     canvas.create_image(0,0,image=img,anchor="nw")
     
