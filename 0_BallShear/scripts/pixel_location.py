@@ -177,6 +177,7 @@ if __name__ == '__main__':
         infile = sys.argv[1]
         if(os.path.exists(sys.argv[1])):
             img=cv2.imread(infile,1)
+            img=cv2.blur(img,(5,5))
             #if img == None:
                 #continue
             sel = (0,0,0,0)
