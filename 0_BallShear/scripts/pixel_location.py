@@ -67,7 +67,7 @@ def onmouse(event, x, y, flags, param):
                         
                         #difference2 = abs(lastpt3-(pt[0]+w/2))
                         #if(difference2 >5):
-                        if(((pt1.count(pt[0]+w/2) ==0) or pt2.count(pt[1]+h/2)==0)and((pt1.count(1+pt[0]+w/2) ==0) or pt2.count(1+pt[1]+h/2)==0) and ((pt1.count(pt[0]+w/2) ==0) or pt2.count(1+pt[1]+h/2)==0) and ((pt1.count(1+pt[0]+w/2) ==0) or pt2.count(pt[1]+h/2)==0)):
+                        #if(((pt1.count(pt[0]+w/2) ==0) or pt2.count(pt[1]+h/2)==0)and((pt1.count(1+pt[0]+w/2) ==0) or pt2.count(1+pt[1]+h/2)==0) and ((pt1.count(pt[0]+w/2) ==0) or pt2.count(1+pt[1]+h/2)==0) and ((pt1.count(1+pt[0]+w/2) ==0) or pt2.count(pt[1]+h/2)==0)):
                                 #if i > 0:
                                 #    text_file.write('\n')
                                 i=i+1
@@ -94,8 +94,8 @@ def onmouse(event, x, y, flags, param):
                                 if(bb==0):
                                     points.insert(i,(i,pt[0]+w/2,pt[1]+h/2))
                                 
-                    pt1.append(pt[0]+w/2)
-                    pt2.append(pt[1]+h/2)
+                    #pt1.append(pt[0]+w/2)
+                    #pt2.append(pt[1]+h/2)
 
             #print label[3][0]
             points.sort()
