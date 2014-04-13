@@ -23,6 +23,7 @@
 		<Item Name="Homing_Y_Stage.vi" Type="VI" URL="../Homing_Y_Stage.vi"/>
 		<Item Name="Homing_Z_Stage.vi" Type="VI" URL="../Homing_Z_Stage.vi"/>
 		<Item Name="LabVIEW Interface for Arduino.lvlib" Type="Library" URL="/&lt;vilib&gt;/LabVIEW Interface for Arduino/LabVIEW Interface for Arduino.lvlib"/>
+		<Item Name="Loop Till Force Sensed Two Sensors.vi" Type="VI" URL="../Loop Till Force Sensed Two Sensors.vi"/>
 		<Item Name="Mallet Move V2.vi" Type="VI" URL="../Mallet Move V2.vi"/>
 		<Item Name="Pressure_Jog_Z.vi" Type="VI" URL="../Pressure_Jog_Z.vi"/>
 		<Item Name="Two Force Sensors V3.vi" Type="VI" URL="../Two Force Sensors V3.vi"/>
@@ -178,10 +179,8 @@
 				<Item Name="WDT Number of Waveform Samples SGL.vi" Type="VI" URL="/&lt;vilib&gt;/Waveform/WDTOps.llb/WDT Number of Waveform Samples SGL.vi"/>
 				<Item Name="whitespace.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/whitespace.ctl"/>
 			</Item>
-			<Item Name="Loop Till Force Sensed Two Sensors.vi" Type="VI" URL="../../../../../Desktop/temp files/Final VIs/Loop Till Force Sensed Two Sensors.vi"/>
 			<Item Name="lvanlys.dll" Type="Document" URL="/&lt;resource&gt;/lvanlys.dll"/>
 			<Item Name="lvsound2.dll" Type="Document" URL="/&lt;resource&gt;/lvsound2.dll"/>
-			<Item Name="XYZ_Stage_Movement.vi" Type="VI" URL="../../XYZ_Stage_Movement.vi"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build"/>
 	</Item>
