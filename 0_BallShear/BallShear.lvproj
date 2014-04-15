@@ -24,6 +24,7 @@
 		<Item Name="Homing_Z_Stage.vi" Type="VI" URL="../Homing_Z_Stage.vi"/>
 		<Item Name="LabVIEW Interface for Arduino.lvlib" Type="Library" URL="/&lt;vilib&gt;/LabVIEW Interface for Arduino/LabVIEW Interface for Arduino.lvlib"/>
 		<Item Name="Loop Till Force Sensed Two Sensors.vi" Type="VI" URL="../Loop Till Force Sensed Two Sensors.vi"/>
+		<Item Name="Mallet Move Sensing Force SubVI.vi" Type="VI" URL="../Mallet Move Sensing Force SubVI.vi"/>
 		<Item Name="Mallet Move V2.vi" Type="VI" URL="../Mallet Move V2.vi"/>
 		<Item Name="Pressure_Jog_Z.vi" Type="VI" URL="../Pressure_Jog_Z.vi"/>
 		<Item Name="Two Force Sensors V3.vi" Type="VI" URL="../Two Force Sensors V3.vi"/>
