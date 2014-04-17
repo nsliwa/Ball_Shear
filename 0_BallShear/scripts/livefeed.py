@@ -25,7 +25,7 @@ def capture():
         file = sys.argv[1]
     (h, w) = camera_capture.shape[:2]
     center = (w / 2, h / 2)
-    M = cv2.getRotationMatrix2D(center, -90, 1.0)
+    M = cv2.getRotationMatrix2D(center, -90, .75)
     rotated = cv2.warpAffine(camera_capture, M, (w, h))    
     camera_capture= rotated
     cv2.imwrite(file, camera_capture)
