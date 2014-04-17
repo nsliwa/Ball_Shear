@@ -13,6 +13,7 @@
 		<Item Name="BallShear.vi" Type="VI" URL="../BallShear.vi"/>
 		<Item Name="BallShear_BallSelection.vi" Type="VI" URL="../BallShear_BallSelection.vi"/>
 		<Item Name="BallShear_BallShear.vi" Type="VI" URL="../BallShear_BallShear.vi"/>
+		<Item Name="BallShear_BallShear_2.vi" Type="VI" URL="../BallShear_BallShear_2.vi"/>
 		<Item Name="BallShear_DependencyCheck.vi" Type="VI" URL="../BallShear_DependencyCheck.vi"/>
 		<Item Name="BallShear_main.vi" Type="VI" URL="../BallShear_main.vi"/>
 		<Item Name="BallShear_PackageAnalysis.vi" Type="VI" URL="../BallShear_PackageAnalysis.vi"/>
@@ -27,11 +28,15 @@
 		<Item Name="Mallet Move Sensing Force SubVI.vi" Type="VI" URL="../Mallet Move Sensing Force SubVI.vi"/>
 		<Item Name="Mallet Move V2.vi" Type="VI" URL="../Mallet Move V2.vi"/>
 		<Item Name="Pressure_Jog_Z.vi" Type="VI" URL="../Pressure_Jog_Z.vi"/>
+		<Item Name="Pressure_Jog_Z2.vi" Type="VI" URL="../Pressure_Jog_Z2.vi"/>
 		<Item Name="Two Force Sensors V3.vi" Type="VI" URL="../Two Force Sensors V3.vi"/>
 		<Item Name="X_Stage.vi" Type="VI" URL="../X_Stage.vi"/>
+		<Item Name="XY_Stage_Movement.vi" Type="VI" URL="../XY_Stage_Movement.vi"/>
 		<Item Name="XYZ_Stage_Movement.vi" Type="VI" URL="../XYZ_Stage_Movement.vi"/>
 		<Item Name="Y_Stage.vi" Type="VI" URL="../Y_Stage.vi"/>
+		<Item Name="YZ_Stage_Movement.vi" Type="VI" URL="../YZ_Stage_Movement.vi"/>
 		<Item Name="Z_Stage.vi" Type="VI" URL="../Z_Stage.vi"/>
+		<Item Name="Z_Stage_Movement.vi" Type="VI" URL="../Z_Stage_Movement.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="vi.lib" Type="Folder">
 				<Item Name="_2DArrToArrWfms.vi" Type="VI" URL="/&lt;vilib&gt;/sound2/lvsound2.llb/_2DArrToArrWfms.vi"/>
