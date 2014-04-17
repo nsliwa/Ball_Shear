@@ -28,8 +28,8 @@ elif __name__ == "__main__":
     frame.pack(fill=BOTH,expand=1)
     csv_virtual = open(sys.argv[2], 'r')
     csv_real = open(sys.argv[3], 'w')
-    rOrigin_x = 0   
-    rOrigin_y = 0
+    rOrigin_x = 29.2   
+    rOrigin_y = 16.9
 
 
     #adding the image
@@ -78,7 +78,7 @@ elif __name__ == "__main__":
             print vCoord[0]
             for label, vX, vY in vCoord:
                 rCoord_x = rOrigin_x+(vX - vOrigin_x) * conversionFactor
-                rCoord_y = rOrigin_y+(vOrigin_y - vY) * conversionFactor
+                rCoord_y = rOrigin_y-(vOrigin_y - vY) * conversionFactor
 
                 if i > 0:
                     csv_real.write('\n')
