@@ -21,15 +21,15 @@ elif __name__ == "__main__":
     xscroll.grid(row=1, column=0, sticky=E+W)
     yscroll = Scrollbar(frame)
     yscroll.grid(row=0, column=1, sticky=N+S)
-    canvas = Canvas(frame,height=500,width=500, bd=0, xscrollcommand=xscroll.set, yscrollcommand=yscroll.set)
+    canvas = Canvas(frame,height=500,width=600, bd=0, xscrollcommand=xscroll.set, yscrollcommand=yscroll.set)
     canvas.grid(row=0, column=0, sticky=N+S+E+W)
     xscroll.config(command=canvas.xview)
     yscroll.config(command=canvas.yview)
     frame.pack(fill=BOTH,expand=1)
     csv_virtual = open(sys.argv[2], 'r')
     csv_real = open(sys.argv[3], 'w')
-    rOrigin_x = 29.2   
-    rOrigin_y = 16.9
+    rOrigin_x = 30.63   
+    rOrigin_y = 17.5
 
 
     #adding the image
