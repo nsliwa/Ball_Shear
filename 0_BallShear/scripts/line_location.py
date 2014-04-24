@@ -28,8 +28,8 @@ elif __name__ == "__main__":
     frame.pack(fill=BOTH,expand=1)
     csv_virtual = open(sys.argv[2], 'r')
     csv_real = open(sys.argv[3], 'w')
-    rOrigin_x = sys.argv[4]   
-    rOrigin_y = sys.argv[5]
+    rOrigin_x = float(sys.argv[4])   
+    rOrigin_y = float(sys.argv[5])
 
 
     #adding the image
