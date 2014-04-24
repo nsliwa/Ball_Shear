@@ -31,9 +31,13 @@
 		<Item Name="Pressure_Jog_Z.vi" Type="VI" URL="../Pressure_Jog_Z.vi"/>
 		<Item Name="Pressure_Jog_Z2.vi" Type="VI" URL="../Pressure_Jog_Z2.vi"/>
 		<Item Name="Two Force Sensors V3.vi" Type="VI" URL="../Two Force Sensors V3.vi"/>
+		<Item Name="X_Jog_Neg.vi" Type="VI" URL="../X_Jog_Neg.vi"/>
+		<Item Name="X_Jog_Plus.vi" Type="VI" URL="../X_Jog_Plus.vi"/>
 		<Item Name="X_Stage.vi" Type="VI" URL="../X_Stage.vi"/>
 		<Item Name="XY_Stage_Movement.vi" Type="VI" URL="../XY_Stage_Movement.vi"/>
 		<Item Name="XYZ_Stage_Movement.vi" Type="VI" URL="../XYZ_Stage_Movement.vi"/>
+		<Item Name="Y_Jog_Neg.vi" Type="VI" URL="../Y_Jog_Neg.vi"/>
+		<Item Name="Y_Jog_Plus.vi" Type="VI" URL="../Y_Jog_Plus.vi"/>
 		<Item Name="Y_Stage.vi" Type="VI" URL="../Y_Stage.vi"/>
 		<Item Name="YZ_Stage_Movement.vi" Type="VI" URL="../YZ_Stage_Movement.vi"/>
 		<Item Name="Z_Stage.vi" Type="VI" URL="../Z_Stage.vi"/>
