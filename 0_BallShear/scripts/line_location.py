@@ -2,7 +2,7 @@ from Tkinter import *
 from tkFileDialog import askopenfilename
 import Image, ImageTk,os,math
 import numpy as np
-if(len(sys.argv)<=5):
+if(len(sys.argv)<=6):
     print >> sys.stderr, 'Input Arguments are not correct. Please follow this templete analyzed  picture file location,virtual coordinate csv file location, physical coordinate csv location'
 
 elif __name__ == "__main__":
@@ -28,7 +28,7 @@ elif __name__ == "__main__":
     frame.pack(fill=BOTH,expand=1)
     csv_virtual = open(sys.argv[2], 'r')
     csv_real = open(sys.argv[3], 'w')
-    rOrigin_x = float(sys.argv[4])   
+    rOrigin_x = float(sys.argv[4])  
     rOrigin_y = float(sys.argv[5])
 
 
@@ -54,7 +54,7 @@ elif __name__ == "__main__":
             root.destroy()
             # Scaling
             vScale = dist
-            rScale  = 5
+            rScale  = sys.argv[6]
             print "vScale:", vScale
             vOrigin_x = x1
             vOrigin_y = y1
