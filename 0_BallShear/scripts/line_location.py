@@ -54,7 +54,7 @@ elif __name__ == "__main__":
             root.destroy()
             # Scaling
             vScale = dist
-            rScale  = sys.argv[6]
+            rScale  = float(sys.argv[6])
             print "vScale:", vScale
             vOrigin_x = x1
             vOrigin_y = y1
